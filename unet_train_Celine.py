@@ -195,7 +195,7 @@ def train(args):
     plt.xlabel("Epoch #")
     plt.ylabel("Loss/Accuracy")
     plt.legend(loc="lower left")
-    plt.savefig('/home/zq/OutPut/Unet_OutPut/u_net_road.png')
+    plt.savefig('/home/zq/output/unet_output_train/u_net_road.png')
 
 
 def args_parse():

@@ -8,11 +8,11 @@ from keras.models import load_model
 from sklearn.preprocessing import LabelEncoder  
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
-TEST_SET = ['1.png','2.png','3.png','4.png','5.png']
+TEST_SET = ['1.png','2.png','3.png','4.png','5.png','6.png']
 
 image_size = 256
 
-classes = [0. ,  1.,  2.,   3.  , 4.]  
+classes = [0. ,  1.,  2.,   3.  , 4. , 5. ]
   
 labelencoder = LabelEncoder()  
 labelencoder.fit(classes) 
@@ -37,7 +37,7 @@ def predict(args):
     for n in range(len(TEST_SET)):
         path = TEST_SET[n]
         #load the image
-        image = cv2.imread('/home/user/PycharmProjects/pycharm_workspace/xuyue/remote_sensing_image/test/' + path)
+        image = cv2.imread('/home/zq/dataset/RSI/all/train/src/' + path)
         h,w,_ = image.shape
         padding_h = (h//stride + 1) * stride 
         padding_w = (w//stride + 1) * stride
@@ -63,7 +63,7 @@ def predict(args):
                 mask_whole[i*stride:i*stride+image_size,j*stride:j*stride+image_size] = pred[:,:]
 
         
-        cv2.imwrite('/home/user/PycharmProjects/pycharm_workspace/xuyue/remote_sensing_image/output_unet_predict/predict'+str(n+1)+'.png',mask_whole[0:h,0:w])
+        cv2.imwrite('/home/zq/dataset/RSI/all/train/src/predict'+str(n+1)+'.png',mask_whole[0:h,0:w])
         
     
 
