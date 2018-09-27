@@ -1,7 +1,7 @@
 import cv2
 
 for a in range(1, 7 ):
-    image = cv2.imread('/home/zq/output/unet_output_predict/final_result/pre{0}.png'.format(a))
+    image = cv2.imread('/home/zq/output/unet_output_predict/predict_11th/predict_test/predict{0}.png'.format(a))
 
     print(image)
 
@@ -39,4 +39,4 @@ for a in range(1, 7 ):
                 image[i][j][2] = 165
 
     #####################################
-    cv2.imwrite('/home/zq/output/unet_output_predict/final/{0}_final.png'.format(a), image[:, :])
+    cv2.imwrite('/home/zq/output/unet_output_predict/predict_11th/predict_test/{0}_final.png'.format(a), image[:, :])

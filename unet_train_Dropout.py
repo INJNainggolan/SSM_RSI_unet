@@ -13,6 +13,7 @@ from keras.callbacks import ModelCheckpoint
 from sklearn.preprocessing import LabelEncoder
 from keras.models import Model
 from keras.layers.merge import concatenate
+from keras.optimizers import *
 from PIL import Image
 import matplotlib.pyplot as plt
 import cv2
@@ -137,12 +138,14 @@ def unet():
 
     conv4 = Conv2D(256, (3, 3), activation="relu", padding="same")(pool3)
     conv4 = Conv2D(256, (3, 3), activation="relu", padding="same")(conv4)
-    pool4 = MaxPooling2D(pool_size=(2, 2))(conv4)
+    drop4 = Dropout(0.5)(conv4)
+    pool4 = MaxPooling2D(pool_size=(2, 2))(drop4)
 
     conv5 = Conv2D(512, (3, 3), activation="relu", padding="same")(pool4)
     conv5 = Conv2D(512, (3, 3), activation="relu", padding="same")(conv5)
+    drop5 = Dropout(0.5)(conv5)
 
-    up6 = concatenate([UpSampling2D(size=(2, 2))(conv5), conv4], axis=3)  # maxl
+    up6 = concatenate([UpSampling2D(size=(2, 2))(drop5), drop4], axis=3)  # maxl
     conv6 = Conv2D(256, (3, 3), activation="relu", padding="same")(up6)
     conv6 = Conv2D(256, (3, 3), activation="relu", padding="same")(conv6)
 
@@ -162,7 +165,7 @@ def unet():
     # conv10 = Conv2D(n_label, (1, 1), activation="softmax")(conv9)
 
     model = Model(inputs=inputs, outputs=conv10)
-    model.compile(optimizer='Adam', loss='binary_crossentropy', metrics=['accuracy'])
+    model.compile(optimizer = Adam(lr = 1e-4), loss='binary_crossentropy', metrics=['accuracy'])
     return model
 
 

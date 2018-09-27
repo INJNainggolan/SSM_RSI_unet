@@ -37,7 +37,7 @@ def predict(args):
     for n in range(len(TEST_SET)):
         path = TEST_SET[n]
         #load the image
-        image = cv2.imread('/home/zq/dataset/RSI/all/train/src/' + path)
+        image = cv2.imread('/home/zq/dataset/RSI_test/' + path)
         h,w,_ = image.shape
         padding_h = (h//stride + 1) * stride 
         padding_w = (w//stride + 1) * stride
@@ -63,7 +63,7 @@ def predict(args):
                 mask_whole[i*stride:i*stride+image_size,j*stride:j*stride+image_size] = pred[:,:]
 
         
-        cv2.imwrite('/home/zq/dataset/RSI/all/train/src/predict'+str(n+1)+'.png',mask_whole[0:h,0:w])
+        cv2.imwrite('/home/zq/output/unet_output_predict/predict_11th/predict_test/predict'+str(n+1)+'.png',mask_whole[0:h,0:w])
         
     
 
